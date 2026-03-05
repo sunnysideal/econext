@@ -339,6 +339,10 @@ class EconextSensor(EconextEntity, SensorEntity):
                 return "unknown"
             return mapped
 
+        # Apply value transformation if specified
+        if self._description.value_fn is not None and isinstance(value, (int, float)):
+            value = self._description.value_fn(value)
+
         # Apply precision if specified
         if self._description.precision is not None and isinstance(value, (int, float)):
             return round(value, self._description.precision)

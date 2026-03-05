@@ -225,6 +225,24 @@
             "cooling_cop_average": {
                 "name": "Cooling COP average"
             },
+            "coil_temperature": {
+                "name": "Coil temperature"
+            },
+            "exv_valve_outlet_temperature": {
+                "name": "EXV valve outlet temperature"
+            },
+            "eev_position": {
+                "name": "EEV position"
+            },
+            "dc_bus_voltage": {
+                "name": "DC bus voltage"
+            },
+            "high_pressure": {
+                "name": "High pressure"
+            },
+            "low_pressure": {
+                "name": "Low pressure"
+            },
             "silent_mode_schedule_sunday_decoded": {
                 "name": "Silent mode schedule Sunday (decoded)"
             },
