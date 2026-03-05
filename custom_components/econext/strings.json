@@ -192,6 +192,18 @@
             "return_temperature": {
                 "name": "Return temperature"
             },
+            "discharge_temperature": {
+                "name": "Discharge temperature"
+            },
+            "suction_temperature": {
+                "name": "Suction temperature"
+            },
+            "defrost_temperature": {
+                "name": "Defrost temperature"
+            },
+            "outdoor_unit_temperature": {
+                "name": "Ambient air temperature"
+            },
             "electrical_power": {
                 "name": "Electrical power"
             },

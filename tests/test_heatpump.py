@@ -110,6 +110,46 @@ class TestHeatPumpSensors:
         assert sensor.native_value == 31.2
         assert sensor.device_class == "temperature"
 
+    def test_discharge_temperature_sensor(self, coordinator):
+        """Test discharge temperature sensor (refrigerant)."""
+        sensor_desc = next(s for s in HEATPUMP_SENSORS if s.key == "discharge_temperature")
+        sensor = EconextSensor(coordinator, sensor_desc, device_id="heatpump")
+
+        assert sensor.unique_id == "2L7SDPN6KQ38CIH2401K01U_heatpump_1137"
+        # From fixture, param 1137 (AxenDischargeTemp) = 34.1
+        assert sensor.native_value == 34.1
+        assert sensor.device_class == "temperature"
+
+    def test_suction_temperature_sensor(self, coordinator):
+        """Test suction temperature sensor (refrigerant)."""
+        sensor_desc = next(s for s in HEATPUMP_SENSORS if s.key == "suction_temperature")
+        sensor = EconextSensor(coordinator, sensor_desc, device_id="heatpump")
+
+        assert sensor.unique_id == "2L7SDPN6KQ38CIH2401K01U_heatpump_1139"
+        # From fixture, param 1139 (AxenSuctionTemp) = 7.0
+        assert sensor.native_value == 7.0
+        assert sensor.device_class == "temperature"
+
+    def test_defrost_temperature_sensor(self, coordinator):
+        """Test defrost temperature sensor (AxenDefrostTemp)."""
+        sensor_desc = next(s for s in HEATPUMP_SENSORS if s.key == "defrost_temperature")
+        sensor = EconextSensor(coordinator, sensor_desc, device_id="heatpump")
+
+        assert sensor.unique_id == "2L7SDPN6KQ38CIH2401K01U_heatpump_1142"
+        # From fixture, param 1142 (AxenDefrostTemp) = 0
+        assert sensor.native_value == 0
+        assert sensor.device_class == "temperature"
+
+    def test_outdoor_unit_temperature_sensor(self, coordinator):
+        """Test outdoor unit temperature sensor (AxenOutdoorTemp)."""
+        sensor_desc = next(s for s in HEATPUMP_SENSORS if s.key == "outdoor_unit_temperature")
+        sensor = EconextSensor(coordinator, sensor_desc, device_id="heatpump")
+
+        assert sensor.unique_id == "2L7SDPN6KQ38CIH2401K01U_heatpump_1143"
+        # From fixture, param 1143 (AxenOutdoorTemp) = 9.8
+        assert sensor.native_value == 9.8
+        assert sensor.device_class == "temperature"
+
     def test_electrical_power_sensor(self, coordinator):
         """Test electrical power sensor."""
         sensor_desc = next(s for s in HEATPUMP_SENSORS if s.key == "electrical_power")
