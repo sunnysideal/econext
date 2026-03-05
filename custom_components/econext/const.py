@@ -1,5 +1,6 @@
 """Constants for the ecoNEXT integration."""
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -175,6 +176,7 @@ class EconextSensorEntityDescription:
     precision: int | None = None
     options: list[str] | None = None  # For enum sensors
     value_map: dict[int, str] | None = None  # Map raw values to enum strings
+    value_fn: Callable[[float | int], float] | None = None  # Transform raw value
     param_id_am: str | None = None  # For schedule diagnostic sensors - AM param
     param_id_pm: str | None = None  # For schedule diagnostic sensors - PM param
 
@@ -522,6 +524,46 @@ HEATPUMP_SENSORS: tuple[EconextSensorEntityDescription, ...] = (
         precision=1,
     ),
     EconextSensorEntityDescription(
+        key="discharge_temperature",
+        param_id="1137",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        icon="mdi:thermometer-high",
+        precision=1,
+    ),
+    EconextSensorEntityDescription(
+        key="suction_temperature",
+        param_id="1139",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        icon="mdi:thermometer-low",
+        precision=1,
+    ),
+    EconextSensorEntityDescription(
+        key="defrost_temperature",
+        param_id="1142",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        icon="mdi:thermometer",
+        precision=1,
+    ),
+    EconextSensorEntityDescription(
+        key="outdoor_unit_temperature",
+        param_id="1143",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        icon="mdi:thermometer",
+        precision=1,
+    ),
+    EconextSensorEntityDescription(
         key="electrical_power",
         param_id="1047",
         device_type=DeviceType.HEATPUMP,
@@ -582,6 +624,66 @@ HEATPUMP_SENSORS: tuple[EconextSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:gauge",
         precision=2,
+    ),
+    EconextSensorEntityDescription(
+        key="coil_temperature",
+        param_id="1196",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        icon="mdi:thermometer",
+        precision=1,
+        value_fn=lambda v: v / 10,
+    ),
+    EconextSensorEntityDescription(
+        key="exv_valve_outlet_temperature",
+        param_id="1198",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        icon="mdi:thermometer",
+        precision=1,
+        value_fn=lambda v: v / 10,
+    ),
+    EconextSensorEntityDescription(
+        key="eev_position",
+        param_id="1217",
+        device_type=DeviceType.HEATPUMP,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:valve",
+        precision=0,
+    ),
+    EconextSensorEntityDescription(
+        key="dc_bus_voltage",
+        param_id="1223",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.VOLTAGE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="V",
+        icon="mdi:flash",
+        precision=0,
+    ),
+    EconextSensorEntityDescription(
+        key="high_pressure",
+        param_id="1233",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="kPa",
+        icon="mdi:gauge-full",
+        precision=0,
+    ),
+    EconextSensorEntityDescription(
+        key="low_pressure",
+        param_id="1234",
+        device_type=DeviceType.HEATPUMP,
+        device_class=SensorDeviceClass.PRESSURE,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="kPa",
+        icon="mdi:gauge-low",
+        precision=0,
     ),
 )
 

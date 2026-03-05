@@ -75,7 +75,8 @@
                 "name": "Flap valve state",
                 "state": {
                     "ch": "Central Heating",
-                    "dhw": "Domestic Hot Water"
+                    "dhw": "Domestic Hot Water",
+                    "unknown": "Unknown"
                 }
             },
             "wifi_ssid": {
@@ -101,7 +102,8 @@
                 "state": {
                     "summer": "Summer",
                     "winter": "Winter",
-                    "auto": "Auto"
+                    "auto": "Auto",
+                    "unknown": "Unknown"
                 }
             },
             "work_state_3": {
@@ -132,7 +134,8 @@
                 "name": "Active preset mode",
                 "state": {
                     "eco": "Eco",
-                    "comfort": "Comfort"
+                    "comfort": "Comfort",
+                    "unknown": "Unknown"
                 }
             },
             "hdw_schedule_sunday_decoded": {
@@ -179,7 +182,8 @@
                 "state": {
                     "standby": "Standby",
                     "heating": "Heating",
-                    "cooling": "Cooling"
+                    "cooling": "Cooling",
+                    "unknown": "Unknown"
                 }
             },
             "flow_temperature": {
@@ -187,6 +191,18 @@
             },
             "return_temperature": {
                 "name": "Return temperature"
+            },
+            "discharge_temperature": {
+                "name": "Discharge temperature"
+            },
+            "suction_temperature": {
+                "name": "Suction temperature"
+            },
+            "defrost_temperature": {
+                "name": "Defrost temperature"
+            },
+            "outdoor_unit_temperature": {
+                "name": "Ambient air temperature"
             },
             "electrical_power": {
                 "name": "Electrical power"
@@ -208,6 +224,24 @@
             },
             "cooling_cop_average": {
                 "name": "Cooling COP average"
+            },
+            "coil_temperature": {
+                "name": "Coil temperature"
+            },
+            "exv_valve_outlet_temperature": {
+                "name": "EXV valve outlet temperature"
+            },
+            "eev_position": {
+                "name": "EEV position"
+            },
+            "dc_bus_voltage": {
+                "name": "DC bus voltage"
+            },
+            "high_pressure": {
+                "name": "High pressure"
+            },
+            "low_pressure": {
+                "name": "Low pressure"
             },
             "silent_mode_schedule_sunday_decoded": {
                 "name": "Silent mode schedule Sunday (decoded)"

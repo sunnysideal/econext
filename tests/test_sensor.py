@@ -235,7 +235,7 @@ class TestEnumSensor:
 
         # From fixture, param 83 = 0 which maps to "ch"
         assert sensor.native_value == "ch"
-        assert sensor._attr_options == ["ch", "dhw"]
+        assert sensor._attr_options == ["ch", "dhw", "unknown"]
 
     def test_active_operating_mode_handles_value_4(self, coordinator: EconextCoordinator) -> None:
         """Test active_operating_mode enum handles value 4 (heating)."""
@@ -291,6 +291,47 @@ class TestEnumSensor:
         sensor = EconextSensor(coordinator, description)
 
         assert sensor.native_value == "cooling"
+
+    def test_enum_sensor_unmapped_value_returns_unknown(self, coordinator: EconextCoordinator) -> None:
+        """Test enum sensor returns 'unknown' for unmapped values (e.g., 65336)."""
+        from custom_components.econext.const import HP_STATUS_WORK_MODE_MAPPING, HP_STATUS_WORK_MODE_OPTIONS
+
+        coordinator.data["1350"] = {"value": 65336, "name": "HPStatusWorkMode", "info": 23}
+
+        description = EconextSensorEntityDescription(
+            key="hp_status_work_mode",
+            param_id="1350",
+            device_class=SensorDeviceClass.ENUM,
+            options=HP_STATUS_WORK_MODE_OPTIONS,
+            value_map=HP_STATUS_WORK_MODE_MAPPING,
+        )
+
+        sensor = EconextSensor(coordinator, description)
+        assert sensor.native_value == "unknown"
+        assert "unknown" in sensor._attr_options
+
+    def test_enum_sensor_unmapped_value_logs_warning(self, coordinator: EconextCoordinator, caplog: pytest.LogCaptureFixture) -> None:
+        """Test enum sensor logs a warning with the raw value for unmapped values."""
+        from custom_components.econext.const import ACTIVE_MODE_MAPPING, ACTIVE_MODE_OPTIONS
+
+        coordinator.data["495"]["value"] = 99
+
+        description = EconextSensorEntityDescription(
+            key="active_operating_mode",
+            param_id="495",
+            device_class=SensorDeviceClass.ENUM,
+            options=ACTIVE_MODE_OPTIONS,
+            value_map=ACTIVE_MODE_MAPPING,
+        )
+
+        sensor = EconextSensor(coordinator, description)
+
+        with caplog.at_level("WARNING"):
+            result = sensor.native_value
+
+        assert result == "unknown"
+        assert "Unmapped value 99" in caplog.text
+        assert "active_operating_mode" in caplog.text
 
 
 class TestSensorEntityCategory:

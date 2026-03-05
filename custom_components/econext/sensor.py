@@ -319,7 +319,7 @@ class EconextSensor(EconextEntity, SensorEntity):
         if description.icon:
             self._attr_icon = description.icon
         if description.options:
-            self._attr_options = description.options
+            self._attr_options = [*description.options, "unknown"]
 
     @property
     def native_value(self):
@@ -331,7 +331,17 @@ class EconextSensor(EconextEntity, SensorEntity):
 
         # Apply value mapping for enum sensors
         if self._description.value_map is not None:
-            return self._description.value_map.get(int(value), str(int(value)))
+            mapped = self._description.value_map.get(int(value))
+            if mapped is None:
+                _LOGGER.warning(
+                    "Unmapped value %s for sensor %s", int(value), self._description.key
+                )
+                return "unknown"
+            return mapped
+
+        # Apply value transformation if specified
+        if self._description.value_fn is not None and isinstance(value, (int, float)):
+            value = self._description.value_fn(value)
 
         # Apply precision if specified
         if self._description.precision is not None and isinstance(value, (int, float)):
