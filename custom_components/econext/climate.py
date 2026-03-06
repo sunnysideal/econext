@@ -420,7 +420,7 @@ class CircuitClimate(EconextEntity, ClimateEntity):
     _attr_preset_modes = [PRESET_ECO, PRESET_COMFORT, PRESET_SCHEDULE]
     _attr_min_temp = 10.0
     _attr_max_temp = 35.0
-    _attr_target_temperature_step = 0.5
+    _attr_target_temperature_step = 0.1
 
     @property
     def supported_features(self) -> int:
