@@ -185,7 +185,7 @@ class TestCircuitClimate:
         """Test entity has correct temperature limits."""
         assert circuit_2_entity._attr_min_temp == 10.0
         assert circuit_2_entity._attr_max_temp == 35.0
-        assert circuit_2_entity._attr_target_temperature_step == 0.5
+        assert circuit_2_entity._attr_target_temperature_step == 0.1
 
     def test_current_temperature(self, circuit_2_entity: CircuitClimate) -> None:
         """Test current temperature from thermostat."""
