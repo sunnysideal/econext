@@ -111,7 +111,9 @@ HEATPUMP_WORK_MODE_REVERSE: dict[str, int] = {v: k for k, v in HEATPUMP_WORK_MOD
 HP_STATUS_WORK_MODE_MAPPING: dict[int, str] = {
     0: "standby",
     1: "heating",
+    2: "hp_status_mode_2",
     3: "cooling",
+    4: "hp_status_mode_4",
 }
 
 HP_STATUS_WORK_MODE_OPTIONS: list[str] = list(HP_STATUS_WORK_MODE_MAPPING.values())
